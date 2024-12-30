@@ -38,8 +38,8 @@ class Api {
     return this._makeRequest(`/cards/likes/${id}`, isLiked ? "PUT" : "DELETE");
   }
 
-  getUserInfo() {
-    return this._makeRequest("/users/me");
+  getUserInfo(userId) {
+    return this._makeRequest(`/users/me/${userId}`);
   }
 
   editUser(data) {

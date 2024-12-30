@@ -34,11 +34,12 @@ function Login({ handleLogin, loggedIn, handleInfoToolTip }) {
 
       const res = await auth.login(user);
       const { data } = await res.json();
-      console.log("token", data);
+      console.log("data", data);
 
       if (data.token) {
         handleLogin();
         localStorage.setItem("jwt", data.token);
+        localStorage.setItem("userId", data.userId);
         history.push("/");
         resetValidation();
       }

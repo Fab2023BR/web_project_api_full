@@ -29,7 +29,7 @@ export default function Main({
             />
           </button>
           <img
-            src={currentUser?.avatar ? currentUser.avatar : imageFallback}
+            src={currentUser?.avatar ? currentUser?.avatar : imageFallback}
             className="profile__avatar"
             alt="Imagem de avatar do usuário"
           />

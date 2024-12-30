@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     function handleCheckToken() {
-      const token = auth.getToken();
+      const { token } = auth.getUserData();
       if (!token) {
         handleLogout();
         setCurrentToken("");
@@ -68,15 +68,16 @@ function App() {
       return;
     }
 
-    const token = auth.getToken();
+    const { token, userId } = auth.getUserData();
     setCurrentToken(token);
 
     api(token)
-      .getUserInfo()
+      .getUserInfo(userId)
       .then(({ data }) => {
         if (!data) {
           return;
         }
+        console.log(data);
         setCurrentUser(data);
       });
 

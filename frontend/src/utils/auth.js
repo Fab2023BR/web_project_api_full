@@ -31,6 +31,9 @@ export const checkToken = async (token) => {
   });
 };
 
-export const getToken = () => {
-  return localStorage.getItem("jwt");
+export const getUserData = () => {
+  return {
+    token: localStorage.getItem("jwt"),
+    userId: localStorage.getItem("userId")
+  };
 };
