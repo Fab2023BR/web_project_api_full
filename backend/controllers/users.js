@@ -91,7 +91,6 @@ export function createUser(req, res) {
 
 export function updateUserProfile(req, res) {
   const { name, about } = req.body;
-  console.log(name, about);
   const userId = req.user._id;
   const userUpdated = {};
 
@@ -146,7 +145,6 @@ export function updateUserAvatar(req, res) {
       throw err;
     })
     .then((user) => {
-      console.log(user);
       return res.send({ data: user });
     })
     .catch((err) => {

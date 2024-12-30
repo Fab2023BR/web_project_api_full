@@ -1,6 +1,6 @@
 import Card from "../models/cards.js";
 
-export function getCards(req, res) {
+export function getCards(req, res, next) {
   return Card.find({})
     .then((cards) => {
       if (!cards) {
@@ -11,8 +11,8 @@ export function getCards(req, res) {
       return res.send({ data: cards });
     })
     .catch((err) => {
-      console.log("getCards Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("getCards Error:", err);
+      next(err);
     });
 }
 
@@ -39,8 +39,8 @@ export function createCard(req, res) {
       return res.send({ data: card });
     })
     .catch((err) => {
-      console.log("createCard Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("createCard Error:", err);
+      next(err);
     });
 }
 
@@ -59,8 +59,8 @@ export function deleteCardById(req, res) {
       return res.send({ message: "Card deletado com sucesso" });
     })
     .catch((err) => {
-      console.log("deleteCardById Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("deleteCardById Error:", err);
+      next(err);
     });
 }
 
@@ -88,8 +88,8 @@ export function likeCard(req, res) {
       return res.send({ message: "Like com sucesso", card });
     })
     .catch((err) => {
-      console.log("likeCard Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("likeCard Error:", err);
+      next(err);
     });
 }
 
@@ -116,7 +116,7 @@ export function dislikeCard(req, res) {
       return res.send({ message: "Like com sucesso", card });
     })
     .catch((err) => {
-      console.log("dislikeCard Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("dislikeCard Error:", err);
+      next(err);
     });
 }
