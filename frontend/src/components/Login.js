@@ -34,7 +34,6 @@ function Login({ handleLogin, loggedIn, handleInfoToolTip }) {
 
       const res = await auth.login(user);
       const { data } = await res.json();
-      console.log("data", data);
 
       if (data.token) {
         handleLogin();

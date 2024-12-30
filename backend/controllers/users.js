@@ -13,8 +13,8 @@ export function getUsers(req, res) {
       res.send({ data: users });
     })
     .catch((err) => {
-      console.log("getUsers Error:", err);
-      res.status(err.status).send({ error: err.message });
+      console.error("getUsers Error:", err);
+      next(err);
     });
 }
 
@@ -30,8 +30,8 @@ export function getUserById(req, res) {
       res.send({ data: user });
     })
     .catch((err) => {
-      console.log("getUserById Error:", err);
-      res.status(err.status).send({ error: err.message });
+      console.error("getUserById Error:", err);
+      next(err);
     });
 }
 
@@ -84,8 +84,8 @@ export function createUser(req, res) {
       return res.send({ data: user });
     })
     .catch((err) => {
-      console.log("createUser Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("createUser Error:", err);
+      next(err);
     });
 }
 
@@ -117,8 +117,8 @@ export function updateUserProfile(req, res) {
       res.send({ data: user });
     })
     .catch((err) => {
-      console.log("updateUserProfile Error:", err);
-      res.status(err.status).send({ error: err.message });
+      console.error("updateUserProfile Error:", err);
+      next(err);
     });
 }
 
@@ -148,7 +148,7 @@ export function updateUserAvatar(req, res) {
       return res.send({ data: user });
     })
     .catch((err) => {
-      console.log("updateUserAvatar Error:", err);
-      return res.status(err.status).send({ error: err.message });
+      console.error("updateUserAvatar Error:", err);
+      next(err);
     });
 }
