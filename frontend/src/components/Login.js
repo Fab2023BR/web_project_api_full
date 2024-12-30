@@ -33,16 +33,12 @@ function Login({ handleLogin, loggedIn, handleInfoToolTip }) {
       }
 
       const res = await auth.login(user);
-      const {error, token} = await res.json();
-      console.log("token", token);
+      const { data } = await res.json();
+      console.log("token", data);
 
-      if (error) {
-        throw new Error(error);
-      }
-
-      if (token) {
+      if (data.token) {
         handleLogin();
-        localStorage.setItem("jwt", token);
+        localStorage.setItem("jwt", data.token);
         history.push("/");
         resetValidation();
       }
@@ -51,7 +47,7 @@ function Login({ handleLogin, loggedIn, handleInfoToolTip }) {
         type: "error",
         message: "Ops, algo saiu errado! Por favor, tente novamente.",
       });
-      console.log("handleSubmitRegister Error", err);
+      console.log("handleSubmitLogin Error", err);
     }
   }
 

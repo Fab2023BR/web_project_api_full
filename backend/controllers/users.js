@@ -45,16 +45,17 @@ export function login(req, res) {
         message: "Email ou senha incorretos",
       });
     }
-    res.status(200).json({
+
+    return res.status(200).json({ data: {
       userId: user._id,
       token: jwt.sign(
         { _id: user._id },
-        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        process.env.NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
         {
           expiresIn: "7d",
         }
       ),
-    });
+    }});
   });
 }
 
@@ -79,12 +80,12 @@ export function createUser(req, res) {
         err.status = 500;
         throw err;
       }
-      req.user._id = user._id;
-      res.send({ data: user });
+
+      return res.send({ data: user });
     })
     .catch((err) => {
       console.log("createUser Error:", err);
-      res.status(err.status).send({ error: err.message });
+      return res.status(err.status).send({ error: err.message });
     });
 }
 

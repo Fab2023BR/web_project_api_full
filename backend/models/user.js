@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import { validateHash } from "../utils/hash.js";
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -42,7 +43,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.findUserByCredentials = (email, password) => {
+userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
     .select("+password")
     .then((user) => {

@@ -42,6 +42,7 @@ function Register({ loggedIn, handleInfoToolTip }) {
       if (data) {
         resetValidation();
       }
+
       handleInfoToolTip(
         {
           type: "success",

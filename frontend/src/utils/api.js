@@ -9,7 +9,7 @@ class Api {
       method,
       headers: { ...this._options.headers }
     };
-
+    
     if (body) {
       options.headers["Content-Type"] = "application/json";
       options.body = JSON.stringify(body);

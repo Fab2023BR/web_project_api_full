@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-const { JWT_SECRET } = process.env;
 
 const extractBearerToken = (token) => {
   return token.replace("Bearer ", "");
@@ -17,7 +16,7 @@ export const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, JWT_SECRET);
+    payload = jwt.verify(token, "dev-secret");
   } catch (error) {
     return res.status(401).json({
       statusCode: 401,
