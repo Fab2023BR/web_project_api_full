@@ -1,3 +1,4 @@
-/backend/node_modules/
-/backend/.env
-/frontend/node_modules/
+/backendSprint18/node_modules
+/backendSprint18/.env
+/frontendSprint18/.env
+/frontendSprint18/node_modules
