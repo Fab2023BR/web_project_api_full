@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import validator from 'validator';
 
 const cardSchema = new mongoose.Schema({
   name: {
@@ -12,20 +13,20 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        return
+        return validator.isURL(v);
       },
-      message: "Link inválido",
+      message: 'Link inválido',
     },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
     required: true,
   },
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
+      ref: 'user',
       default: [],
     },
   ],
@@ -35,4 +36,4 @@ const cardSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("card", cardSchema);
+export default mongoose.model('card', cardSchema);

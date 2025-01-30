@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import validator from "validator";
-import { validateHash } from "../utils/hash.js";
+import mongoose from 'mongoose';
+import validator from 'validator';
+import { validateHash } from '../utils/hash';
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (v) => validator.isEmail(v),
-      message: "Formato do Email Inválido",
+      message: 'Formato do Email Inválido',
     },
   },
   password: {
@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 2,
     maxlength: 30,
-    default: "Jacques Cousteau",
+    default: 'Jacques Cousteau',
   },
   about: {
     type: String,
     minlength: 2,
     maxlength: 30,
-    default: "Explorer",
+    default: 'Explorer',
   },
   avatar: {
     type: String,
@@ -36,28 +36,28 @@ const userSchema = new mongoose.Schema({
       validator(v) {
         return validator.isURL(v);
       },
-      message: "Link inválido",
+      message: 'Link inválido',
     },
     default:
-      "https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg",
+      'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
   },
 });
 
-userSchema.statics.findUserByCredentials = function (email, password) {
-  return this.findOne({ email })
-    .select("+password")
+userSchema.statics.findUserByCredentials = (email, password) => (
+  this.findOne({ email })
+    .select('+password')
     .then((user) => {
       if (!user) {
         return {
           statusCode: 401,
-          message: "Email ou senha incorreto",
+          message: 'Email ou senha incorreto',
         };
       }
       return {
         validateHash: validateHash(password, user.password),
         user,
       };
-    });
-};
+    })
+);
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model('user', userSchema);

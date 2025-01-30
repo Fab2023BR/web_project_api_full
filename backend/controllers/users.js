@@ -1,28 +1,28 @@
-import User from "../models/user.js";
-import jwt from "jsonwebtoken";
-import { createHash } from "../utils/hash.js";
+import jwt from 'jsonwebtoken';
+import User from '../models/user';
+import { createHash } from '../utils/hash';
 
-export function getUsers(req, res) {
+export function getUsers(req, res, next) {
   return User.find({})
     .then((users) => {
       if (!users) {
-        const err = new Error("Erro ao buscar usuários");
+        const err = new Error('Erro ao buscar usuários');
         err.status = 500;
         throw err;
       }
       res.send({ data: users });
     })
     .catch((err) => {
-      console.error("getUsers Error:", err);
+      console.error('getUsers Error:', err);
       next(err);
     });
 }
 
-export function getUserById(req, res) {
+export function getUserById(req, res, next) {
   const { userId } = req.params;
   return User.findById(userId)
     .orFail(() => {
-      const err = new Error("Usuário não encontrado");
+      const err = new Error('Usuário não encontrado');
       err.status = 404;
       throw err;
     })
@@ -30,7 +30,7 @@ export function getUserById(req, res) {
       res.send({ data: user });
     })
     .catch((err) => {
-      console.error("getUserById Error:", err);
+      console.error('getUserById Error:', err);
       next(err);
     });
 }
@@ -42,29 +42,40 @@ export function login(req, res) {
     if (!user) {
       return res.status(401).json({
         statusCode: 401,
-        message: "Email ou senha incorretos",
+        message: 'Email ou senha incorretos',
       });
     }
 
-    return res.status(200).json({ data: {
-      userId: user._id,
-      token: jwt.sign(
-        { _id: user._id },
-        process.env.NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
-        {
-          expiresIn: "7d",
-        }
-      ),
-    }});
+    return res.status(200).json({
+      data: {
+        userId: user._id,
+        token: jwt.sign(
+          { _id: user._id },
+          process.env.NODE_ENV === 'production'
+            ? process.env.JWT_SECRET
+            : 'dev-secret',
+          {
+            expiresIn: '7d',
+          },
+        ),
+      },
+    });
   });
 }
 
-export function createUser(req, res) {
-  const { name, about, avatar, email, password } = req.body;
+export function createUser(req, res, next) {
+  const {
+    name,
+    about,
+    avatar,
+    email,
+    password,
+  } = req.body;
+
   const hashedPassword = createHash(password);
 
   if (!email || !password) {
-    return res.status(400).send({ error: "Dados inválidos..." });
+    return res.status(400).send({ error: 'Dados inválidos...' });
   }
 
   return User.create({
@@ -76,7 +87,7 @@ export function createUser(req, res) {
   })
     .then((user) => {
       if (!user) {
-        const err = new Error("Ocorreu um erro ao criar usuário");
+        const err = new Error('Ocorreu um erro ao criar usuário');
         err.status = 500;
         throw err;
       }
@@ -84,12 +95,12 @@ export function createUser(req, res) {
       return res.send({ data: user });
     })
     .catch((err) => {
-      console.error("createUser Error:", err);
+      console.error('createUser Error:', err);
       next(err);
     });
 }
 
-export function updateUserProfile(req, res) {
+export function updateUserProfile(req, res, next) {
   const { name, about } = req.body;
   const userId = req.user._id;
   const userUpdated = {};
@@ -102,14 +113,14 @@ export function updateUserProfile(req, res) {
   }
 
   if (!name && !about) {
-    return res.status(400).send({ error: "Dados inválidos..." });
+    return res.status(400).send({ error: 'Dados inválidos...' });
   }
 
   return User.findByIdAndUpdate(userId, userUpdated, {
     new: true,
   })
     .orFail(() => {
-      const err = new Error("Usuário não encontrado");
+      const err = new Error('Usuário não encontrado');
       err.status = 404;
       throw err;
     })
@@ -117,17 +128,17 @@ export function updateUserProfile(req, res) {
       res.send({ data: user });
     })
     .catch((err) => {
-      console.error("updateUserProfile Error:", err);
+      console.error('updateUserProfile Error:', err);
       next(err);
     });
 }
 
-export function updateUserAvatar(req, res) {
+export function updateUserAvatar(req, res, next) {
   const { avatar } = req.body;
   const userId = req.user._id;
 
   if (!avatar) {
-    return res.status(400).send({ error: "Dados inválidos..." });
+    return res.status(400).send({ error: 'Dados inválidos...' });
   }
 
   return User.findByIdAndUpdate(
@@ -137,18 +148,16 @@ export function updateUserAvatar(req, res) {
     },
     {
       new: true,
-    }
+    },
   )
     .orFail(() => {
-      const err = new Error("Usuário não encontrado");
+      const err = new Error('Usuário não encontrado');
       err.status = 404;
       throw err;
     })
-    .then((user) => {
-      return res.send({ data: user });
-    })
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
-      console.error("updateUserAvatar Error:", err);
+      console.error('updateUserAvatar Error:', err);
       next(err);
     });
 }

@@ -77,7 +77,6 @@ function App() {
         if (!data) {
           return;
         }
-        console.log(data);
         setCurrentUser(data);
       });
 

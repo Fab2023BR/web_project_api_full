@@ -1,6 +1,13 @@
 import { Router } from 'express';
-import { getCards, createCard, deleteCardById, likeCard, dislikeCard } from '../controllers/cards.js';
-import { auth } from '../middlewares/auth.js'
+import {
+  getCards,
+  createCard,
+  deleteCardById,
+  likeCard,
+  dislikeCard,
+} from '../controllers/cards';
+import auth from '../middlewares/auth';
+
 const router = Router();
 
 router.get('/', auth, getCards);
