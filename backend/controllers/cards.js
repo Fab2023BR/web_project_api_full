@@ -49,7 +49,7 @@ export function deleteCardById(req, res, next) {
 
   const userId = req.user._id;
 
-  return Card.deleteOne({ _id: cardId, owner: userId})
+  return Card.deleteOne({ _id: cardId, owner: userId })
     .orFail(() => {
       const err = new Error('Erro ao deletar este card');
       err.status = 400;
@@ -64,7 +64,7 @@ export function deleteCardById(req, res, next) {
     });
 }
 
-export function likeCard(req, res) {
+export function likeCard(req, res, next) {
   const { cardId } = req.params;
   const userId = req.user._id;
 
@@ -84,9 +84,7 @@ export function likeCard(req, res) {
       err.status = 404;
       throw err;
     })
-    .then((card) => {
-      return res.send({ message: 'Like com sucesso', card });
-    })
+    .then((card) => res.send({ message: 'Like com sucesso', card }))
     .catch((err) => {
       console.error('likeCard Error:', err);
       next(err);
@@ -112,9 +110,7 @@ export function dislikeCard(req, res, next) {
       err.status = 404;
       throw err;
     })
-    .then((card) => {
-      return res.send({ message: 'Like com sucesso', card });
-    })
+    .then((card) => res.send({ message: 'Like com sucesso', card }))
     .catch((err) => {
       console.error('dislikeCard Error:', err);
       next(err);

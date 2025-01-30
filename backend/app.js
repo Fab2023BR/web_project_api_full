@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import userRouter from './routes/users';
 import cardRouter from './routes/cards';
-import errorHandler from './middlewares/errorHandler'; 
+import errorHandler from './middlewares/errorHandler';
 import logger from './middlewares/logger';
-import {login, createUser} from './controllers/users';
+import { login, createUser } from './controllers/users';
 
 const { PORT = 3000 } = process.env;
 
