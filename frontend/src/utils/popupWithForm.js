@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import iconClose from "../images/close-icon.png";
 import { FormValidator, validateOptions } from "../src/utils/formValidator";
 

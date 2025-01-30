@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import logo from "../images/logo-around.png";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";

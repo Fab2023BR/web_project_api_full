@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { withRouter, useHistory, Redirect, Link } from "react-router-dom";
 import * as auth from "../utils/auth";
 import { FormValidator, validateOptionsAuth } from "../utils/formValidator";

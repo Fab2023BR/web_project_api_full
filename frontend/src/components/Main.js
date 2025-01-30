@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import imageFallback from "../images/avatar-fallback.png";
 import iconEdit from "../images/edit-icon.png";
 import iconPlus from "../images/plus.icon.png";

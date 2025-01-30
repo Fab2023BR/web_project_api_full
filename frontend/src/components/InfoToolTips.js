@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import iconClose from "../images/close-icon.png";
 import iconSuccess from "../images/popup-vitoria.png";
 import iconError from "../images/popup-erro.png";
